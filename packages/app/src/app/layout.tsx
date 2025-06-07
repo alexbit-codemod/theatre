@@ -1,3 +1,5 @@
+import {NextIntlClientProvider} from 'next-intl'
+import {getMessages} from 'next-intl/server'
 import {headers} from 'next/headers'
 import {TRPCReactProvider} from '~/trpc/react'
 import './global.css'
@@ -9,15 +11,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const messages = await getMessages()
+
   return (
-    <html lang="en">
-      <body>
-        <TRPCReactProvider headers={headers()}>
-          <Toaster />
-          <Prompts />
-          {children}
-        </TRPCReactProvider>
-      </body>
-    </html>
+    <NextIntlClientProvider messages={messages}>
+      <html lang="en">
+        <body>
+          <TRPCReactProvider headers={headers()}>
+            <Toaster />
+            <Prompts />
+            {children}
+          </TRPCReactProvider>
+        </body>
+      </html>
+    </NextIntlClientProvider>
   )
 }

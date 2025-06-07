@@ -1,8 +1,8 @@
 'use client'
 
 import {type FC, Suspense} from 'react'
-import type {PromptProps} from '~/app/_components/Prompts';
-import { confirm, prompt} from '~/app/_components/Prompts'
+import type {PromptProps} from '~/app/_components/Prompts'
+import {confirm, prompt} from '~/app/_components/Prompts'
 import {DialogHeader, DialogTitle} from '~/ui/components/ui/dialog'
 import * as schemas from '~/schemas'
 import {Button} from '~/ui/components/ui/button'

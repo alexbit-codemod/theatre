@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import * as React from 'react'
 import {signOut} from 'next-auth/react'
@@ -16,6 +17,8 @@ import {api} from '~/trpc/react'
 import {promptAccountSettings} from './AccountSettingsPrompt'
 
 export default function AccountSwitcher() {
+  const t = useTranslations('app/(protected)/_components')
+
   const [open, setOpen] = React.useState(false)
 
   const user = api.me.get.useQuery().data
@@ -46,7 +49,7 @@ export default function AccountSwitcher() {
           className="w-full justify-start"
           onClick={() => promptAccountSettings()}
         >
-          Account settings
+          {t('account-settings')}
         </Button>
         <Button
           variant="ghost"
@@ -57,7 +60,7 @@ export default function AccountSwitcher() {
             })
           }
         >
-          Sign out
+          {t('sign-out')}
         </Button>
       </PopoverContent>
     </Popover>

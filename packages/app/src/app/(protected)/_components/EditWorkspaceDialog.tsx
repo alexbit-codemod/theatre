@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {
   Dialog,
@@ -47,6 +48,8 @@ export default function EditWorkspaceDialog({
   open: boolean
   onOpenChange: (isOpen: boolean) => void
 }) {
+  const t = useTranslations('app/(protected)/_components')
+
   const {toast} = useToast()
   const {mutateAsync, isLoading} = api.workspaces.update.useMutation()
   const queryUtils = api.useUtils()
@@ -81,7 +84,7 @@ export default function EditWorkspaceDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Workspace</DialogTitle>
+          <DialogTitle>{t('edit-workspace')}</DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
@@ -92,7 +95,7 @@ export default function EditWorkspaceDialog({
                 name="name"
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t('name')}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -105,7 +108,7 @@ export default function EditWorkspaceDialog({
                 name="description"
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t('description')}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

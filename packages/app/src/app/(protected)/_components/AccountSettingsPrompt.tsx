@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {type FC} from 'react'
 import type {PromptProps} from '~/app/_components/Prompts'
@@ -13,6 +14,8 @@ import {Separator} from '~/ui/components/ui/separator'
 import {useRouter} from 'next/navigation'
 
 const AccountSettingsPrompt: FC<PromptProps<null>> = ({done}) => {
+  const t = useTranslations('app/(protected)/_components')
+
   const user = api.me.get.useQuery().data!
   const updateUser = api.me.update.useMutation().mutateAsync
   const deleteUser = api.me.delete.useMutation().mutateAsync
@@ -23,10 +26,10 @@ const AccountSettingsPrompt: FC<PromptProps<null>> = ({done}) => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Account Settings</DialogTitle>
+        <DialogTitle>{t('account-settings')}</DialogTitle>
       </DialogHeader>
       <div>
-        <div className="font-bold">Name</div>
+        <div className="font-bold">{t('name-label')}</div>
         <div className="flex items-center">
           <div className="text-sm">{user.name}</div>
           <Button
@@ -54,12 +57,12 @@ const AccountSettingsPrompt: FC<PromptProps<null>> = ({done}) => {
               }
             }}
           >
-            Edit
+            {t('edit-button')}
           </Button>
         </div>
       </div>
       <div>
-        <div className="font-bold">Email</div>
+        <div className="font-bold">{t('email-label')}</div>
         <div className="flex items-center">
           <div className="text-sm">{user.email}</div>
           <Button
@@ -87,7 +90,7 @@ const AccountSettingsPrompt: FC<PromptProps<null>> = ({done}) => {
               }
             }}
           >
-            Edit
+            {t('edit-email-button')}
           </Button>
         </div>
       </div>
@@ -115,7 +118,7 @@ const AccountSettingsPrompt: FC<PromptProps<null>> = ({done}) => {
           }
         }}
       >
-        Delete account
+        {t('delete-account-button')}
       </Button>
     </>
   )

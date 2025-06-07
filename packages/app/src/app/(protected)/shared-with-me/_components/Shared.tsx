@@ -1,9 +1,12 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {api} from '~/trpc/react'
 import WorkspaceThumb from '../../_components/WorkspaceThumb'
 
 export default function Shared() {
+  const t = useTranslations('app/(protected)/shared-with-me/_components')
+
   const workspaces = api.workspaces.getAll.useQuery().data!
   const sharedWorkspaces = workspaces.filter(
     (workspace) => workspace.accessType === 'GUEST',
@@ -14,7 +17,7 @@ export default function Shared() {
       <div className="flex justify-between items-center mb-6">
         <div className="flex gap-4 items-center group">
           <h2 className="text-2xl font-semibold tracking-tight">
-            Shared with me
+            {t('shared-with-me')}
           </h2>
         </div>
       </div>

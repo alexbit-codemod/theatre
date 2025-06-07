@@ -1,3 +1,4 @@
+import {useTranslations} from 'next-intl'
 import {cn} from '~/ui/lib/utils'
 import {
   ContextMenu,
@@ -29,6 +30,8 @@ export default function WorkspaceThumb({
   className,
   ...props
 }: WorkspaceThumbProps) {
+  const t = useTranslations('app/(protected)/_components')
+
   return (
     <div className={cn('space-y-3', className)} {...props}>
       <ContextMenu>
@@ -46,15 +49,17 @@ export default function WorkspaceThumb({
         </ContextMenuTrigger>
         <ContextMenuContent className="w-40">
           <ContextMenuItem onSelect={onInvite}>
-            Invite collaborators
+            {t('invite-collaborators')}
           </ContextMenuItem>
-          <ContextMenuItem onSelect={onEdit}>Edit</ContextMenuItem>
-          <ContextMenuItem onSelect={onDuplicate}>Duplicate</ContextMenuItem>
+          <ContextMenuItem onSelect={onEdit}>{t('edit')}</ContextMenuItem>
+          <ContextMenuItem onSelect={onDuplicate}>
+            {t('duplicate')}
+          </ContextMenuItem>
           <ContextMenuItem
             onSelect={onDelete}
             className="data-[highlighted]:bg-destructive data-[highlighted]:text-destructive-foreground"
           >
-            Delete
+            {t('delete')}
           </ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>

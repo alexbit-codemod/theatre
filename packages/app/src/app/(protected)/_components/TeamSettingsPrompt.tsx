@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {type FC, Suspense} from 'react'
 import type {PromptProps} from '~/app/_components/Prompts'
@@ -18,6 +19,8 @@ const TeamSettingsPrompt: FC<{id: string} & PromptProps<null>> = ({
   id,
   done,
 }) => {
+  const t = useTranslations('app/(protected)/_components')
+
   const team = api.teams.get.useQuery({id}).data!
   const updateTeam = api.teams.update.useMutation().mutateAsync
   const deleteTeam = api.teams.delete.useMutation().mutateAsync
@@ -28,10 +31,10 @@ const TeamSettingsPrompt: FC<{id: string} & PromptProps<null>> = ({
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Team Settings</DialogTitle>
+        <DialogTitle>{t('team-settings')}</DialogTitle>
       </DialogHeader>
       <div>
-        <div className="font-bold">Team name</div>
+        <div className="font-bold">{t('team-name')}</div>
         <div className="flex items-center">
           <div className="text-sm">{team.name}</div>
           <Button
@@ -60,14 +63,14 @@ const TeamSettingsPrompt: FC<{id: string} & PromptProps<null>> = ({
               }
             }}
           >
-            Edit
+            {t('edit-button')}
           </Button>
         </div>
       </div>
       <Separator className="my-4" />
       <div className="space-y-4">
         <div className="flex items-center">
-          <h4 className="text-sm font-medium">Members</h4>
+          <h4 className="text-sm font-medium">{t('members-title')}</h4>
           <Button
             variant="link"
             className="text-blue-500"
@@ -75,10 +78,10 @@ const TeamSettingsPrompt: FC<{id: string} & PromptProps<null>> = ({
               void promptInviteMembers(id)
             }}
           >
-            Invite
+            {t('invite-button')}
           </Button>
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>{t('loading-message')}</div>}>
           <Members teamId={id} />
         </Suspense>
       </div>
@@ -106,7 +109,8 @@ const TeamSettingsPrompt: FC<{id: string} & PromptProps<null>> = ({
           }
         }}
       >
-        Delete {team.name}
+        {t('delete-button')}
+        {team.name}
       </Button>
     </>
   )

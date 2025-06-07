@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {useState} from 'react'
 import {
@@ -36,6 +37,8 @@ const formSchema = z.object({
 })
 
 export default function NewWorkspaceDialog({teamId}: {teamId: string}) {
+  const t = useTranslations('app/(protected)/_components')
+
   const [isOpen, setIsOpen] = useState(false)
   const {toast} = useToast()
   const {mutateAsync, isLoading} = api.workspaces.create.useMutation()
@@ -63,7 +66,11 @@ export default function NewWorkspaceDialog({teamId}: {teamId: string}) {
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
         description: "Couldn't create the workspace.",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+        action: (
+          <ToastAction altText={t('try-again-message')}>
+            {t('try-again-label')}
+          </ToastAction>
+        ),
       })
     }
   }
@@ -73,14 +80,14 @@ export default function NewWorkspaceDialog({teamId}: {teamId: string}) {
       <DialogTrigger asChild>
         <Button onClick={() => {}}>
           <Plus className="mr-2 h-4 w-4" />
-          Workspace
+          {t('workspace-title')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>New Workspace</DialogTitle>
+          <DialogTitle>{t('new-workspace-label')}</DialogTitle>
           <DialogDescription>
-            Create a new workspace for your team.
+            {t('create-workspace-description')}
           </DialogDescription>
         </DialogHeader>
 
@@ -92,7 +99,7 @@ export default function NewWorkspaceDialog({teamId}: {teamId: string}) {
                 name="name"
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>{t('name-label')}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
@@ -105,7 +112,7 @@ export default function NewWorkspaceDialog({teamId}: {teamId: string}) {
                 name="description"
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t('description-label')}</FormLabel>
                     <FormControl>
                       <Input {...field} />
                     </FormControl>

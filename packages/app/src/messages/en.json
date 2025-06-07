@@ -1,0 +1,90 @@
+{
+  "app/(public)/somethingpublic": {
+    "something": "something"
+  },
+  "app/_components": {
+    "cancel-button": "Cancel",
+    "submit-button": "Submit"
+  },
+  "app/(public)/_components": {
+    "sign-in": "Sign in"
+  },
+  "app/(protected)/recents": {
+    "recents": "Recents",
+    "under-construction-message": "This page is under construction"
+  },
+  "app/(protected)/_components": {
+    "invite-collaborators": "Invite people to collaborate on this workspace.",
+    "edit": "Edit",
+    "duplicate": "Duplicate",
+    "delete": "Delete",
+    "member-label": "Member",
+    "owner-label": "Owner",
+    "remove-button": "Remove",
+    "recents": "Recents",
+    "shared-with-me": "Shared with me",
+    "teams": "Teams",
+    "team-settings": "Team Settings",
+    "team-name": "Team name",
+    "edit-button": "Edit",
+    "members-title": "Members",
+    "invite-button": "Invite",
+    "loading-message": "Loading...",
+    "delete-button": "Delete",
+    "edit-workspace": "Edit Workspace",
+    "name": "Name",
+    "description": "Description",
+    "try-again-message": "Try again",
+    "try-again-label": "Try again",
+    "workspace-title": " Workspace",
+    "new-workspace-label": "New Workspace",
+    "create-workspace-description": "Create a new workspace for your team.",
+    "name-label": "Name",
+    "description-label": "Description",
+    "account-settings": "Account Settings",
+    "sign-out": "Sign out",
+    "invite-members-to": "Invite Members to",
+    "email-address": "janedoe@example.com",
+    "member": "Member",
+    "owner": "Owner",
+    "invite": "Invite",
+    "members": "Members",
+    "loading": "Loading...",
+    "notifications-title": "Notifications",
+    "invitation-message-with-access-level": "You have been invited to {invitationAccessLevelRead,select,true{read} false{edit}} {component0}",
+    "accept-button": "Accept",
+    "reject-button": "Reject",
+    "invitation-to-join-team": "You have been invited to join {component0}",
+    "accept-button-duplicate": "Accept",
+    "reject-button-duplicate": "Reject",
+    "email-label": "Email",
+    "edit-email-button": "Edit",
+    "delete-account-button": "Delete account",
+    "share-workspace": "Share this workspace",
+    "email-jane-doe": "janedoe@example.com",
+    "edit-action": "Edit",
+    "read-action": "Read",
+    "guests-label": "Guests",
+    "can-edit-permission": "Can edit",
+    "can-view-permission": "Can view"
+  },
+  "app/(protected)/shared-with-me/_components": {
+    "shared-with-me": "Shared with me"
+  },
+  "app/(protected)/team/[id]": {
+    "team-not-found": "Team not found",
+    "team-request-not-found": "Could not find requested team",
+    "view-home-link_component0": "Home",
+    "view-home-link": "View {component0}"
+  },
+  "app/(protected)/account-setup/_components": {
+    "name-label": "Name",
+    "name-description": "This is your public display name.",
+    "email-label": "Email",
+    "email-description": "Your email address. People can use this to invite you to teams or workspaces.",
+    "submit-button": "Submit"
+  },
+  "app/(protected)/workspace/[id]": {
+    "workspace": "workspace"
+  }
+}

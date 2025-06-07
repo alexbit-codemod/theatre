@@ -1,3 +1,4 @@
+import {useTranslations} from 'next-intl'
 import {api} from '~/trpc/react'
 import {Avatar, AvatarFallback, AvatarImage} from '~/ui/components/ui/avatar'
 import {
@@ -12,6 +13,8 @@ import {Button} from '~/ui/components/ui/button'
 import {useToast} from '~/ui/components/ui/use-toast'
 
 export default function Members({teamId}: {teamId: string}) {
+  const t = useTranslations('app/(protected)/_components')
+
   const members = api.teams.getMembers.useQuery({id: teamId}).data!
   const removeMember = api.teams.removeMember.useMutation().mutateAsync
   const changeMemberRole = api.teams.changeMemberRole.useMutation().mutateAsync
@@ -73,15 +76,15 @@ export default function Members({teamId}: {teamId: string}) {
               <SelectValue defaultValue={member.role} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="MEMBER">Member</SelectItem>
-              <SelectItem value="OWNER">Owner</SelectItem>
+              <SelectItem value="MEMBER">{t('member-label')}</SelectItem>
+              <SelectItem value="OWNER">{t('owner-label')}</SelectItem>
               <Separator className="my-2" />
               <Button
                 variant="ghost"
                 className="w-full h-8 hover:bg-destructive hover:text-destructive-foreground"
                 onClick={() => handleRemoveMember(member.email)}
               >
-                Remove
+                {t('remove-button')}
               </Button>
             </SelectContent>
           </Select>

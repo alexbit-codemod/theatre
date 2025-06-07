@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {Suspense, type FC} from 'react'
 import {api} from '~/trpc/react'
@@ -33,6 +34,8 @@ const formSchema = z.object({
 })
 
 const InviteTeamMembersPrompt: FC<{id: string}> = ({id}) => {
+  const t = useTranslations('app/(protected)/_components')
+
   const team = api.teams.get.useQuery({id}).data!
   const inviteMembers = api.teams.inviteMembers.useMutation().mutateAsync
   const queryUtils = api.useUtils()
@@ -66,7 +69,10 @@ const InviteTeamMembersPrompt: FC<{id: string}> = ({id}) => {
   return (
     <>
       <DialogHeader>
-        <DialogTitle>Invite Members to {team.name}</DialogTitle>
+        <DialogTitle>
+          {t('invite-members-to')}
+          {team.name}
+        </DialogTitle>
       </DialogHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -74,45 +80,53 @@ const InviteTeamMembersPrompt: FC<{id: string}> = ({id}) => {
             <FormField
               control={form.control}
               name="email"
-              render={({field}) => (
-                <FormItem className="flex-1">
-                  <FormControl>
-                    <Input {...field} placeholder="janedoe@example.com" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({field}) => {
+                const t = useTranslations('app/(protected)/_components')
+
+                return (
+                  <FormItem className="flex-1">
+                    <FormControl>
+                      <Input {...field} placeholder={t('email-address')} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}
               name="role"
-              render={({field}) => (
-                <FormItem className="">
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue defaultValue={field.value} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="MEMBER">Member</SelectItem>
-                      <SelectItem value="OWNER">Owner</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormItem>
-              )}
+              render={({field}) => {
+                const t = useTranslations('app/(protected)/_components')
+
+                return (
+                  <FormItem className="">
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue defaultValue={field.value} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="MEMBER">{t('member')}</SelectItem>
+                        <SelectItem value="OWNER">{t('owner')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )
+              }}
             />
-            <Button type="submit">Invite</Button>
+            <Button type="submit">{t('invite')}</Button>
           </div>
         </form>
       </Form>
       <Separator className="my-4" />
       <div className="space-y-4">
-        <h4 className="text-sm font-medium">Members</h4>
-        <Suspense fallback={<div>Loading...</div>}>
+        <h4 className="text-sm font-medium">{t('members')}</h4>
+        <Suspense fallback={<div>{t('loading')}</div>}>
           <Members teamId={id} />
         </Suspense>
       </div>

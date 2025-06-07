@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {Suspense} from 'react'
 import Link from 'next/link'
@@ -14,6 +15,8 @@ import * as schemas from '~/schemas'
 import {promptInviteMembers} from './InviteTeamMembersPrompt'
 
 export default function Navigation() {
+  const t = useTranslations('app/(protected)/_components')
+
   const teams = api.teams.getAll.useQuery().data!
   const createTeam = api.teams.create.useMutation().mutateAsync
   const segments = useSelectedLayoutSegments()
@@ -40,7 +43,7 @@ export default function Navigation() {
                   variant={selected === 'recents' ? 'secondary' : 'ghost'}
                   className="w-full justify-start"
                 >
-                  Recents
+                  {t('recents')}
                 </Button>
               </Link>
 
@@ -51,7 +54,7 @@ export default function Navigation() {
                   }
                   className="w-full justify-start"
                 >
-                  Shared with me
+                  {t('shared-with-me')}
                 </Button>
               </Link>
             </div>
@@ -59,7 +62,7 @@ export default function Navigation() {
           <div className="px-3 py-2">
             <div className="flex gap-2 items-center group mb-2">
               <h2 className="pl-4 text-lg font-semibold tracking-tight">
-                Teams
+                {t('teams')}
               </h2>
               <Button
                 variant="outline"

@@ -1,3 +1,6 @@
+import {useTranslations} from 'next-intl'
 export default function WorkspacePage() {
-  return <div>workspace</div>
+  const t = useTranslations('app/(protected)/workspace/[id]')
+
+  return <div>{t('workspace')}</div>
 }

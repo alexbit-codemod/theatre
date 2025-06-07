@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {Suspense} from 'react'
 import {useForm} from 'react-hook-form'
@@ -45,6 +46,8 @@ export default function InviteGuestsDialog({
   open: boolean
   onOpenChange: (isOpen: boolean) => void
 }) {
+  const t = useTranslations('app/(protected)/_components')
+
   const {mutateAsync: inviteGuests, isLoading} =
     api.workspaces.inviteGuests.useMutation()
   const queryUtils = api.useUtils()
@@ -78,7 +81,7 @@ export default function InviteGuestsDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogHeader>Share this workspace</DialogHeader>
+          <DialogHeader>{t('share-workspace')}</DialogHeader>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -93,7 +96,7 @@ export default function InviteGuestsDialog({
                 render={({field}) => (
                   <FormItem className="flex-1">
                     <FormControl>
-                      <Input {...field} placeholder="janedoe@example.com" />
+                      <Input {...field} placeholder={t('email-jane-doe')} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -114,23 +117,25 @@ export default function InviteGuestsDialog({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="READ_WRITE">Edit</SelectItem>
-                        <SelectItem value="READ">Read</SelectItem>
+                        <SelectItem value="READ_WRITE">
+                          {t('edit-action')}
+                        </SelectItem>
+                        <SelectItem value="READ">{t('read-action')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormItem>
                 )}
               />
               <Button type="submit" disabled={isLoading}>
-                Invite
+                {t('invite-button')}
               </Button>
             </div>
           </form>
         </Form>
         <Separator className="my-4" />
         <div className="space-y-4">
-          <h4 className="text-sm font-medium">Guests</h4>
-          <Suspense fallback={<div>Loading...</div>}>
+          <h4 className="text-sm font-medium">{t('guests-label')}</h4>
+          <Suspense fallback={<div>{t('loading-message')}</div>}>
             <Guests workspaceId={workspaceId} />
           </Suspense>
         </div>
@@ -140,6 +145,8 @@ export default function InviteGuestsDialog({
 }
 
 function Guests({workspaceId}: {workspaceId: string}) {
+  const t = useTranslations('app/(protected)/_components')
+
   const guests = api.workspaces.getGuests.useQuery({id: workspaceId}).data!
   const {mutateAsync: removeGuest} = api.workspaces.removeGuest.useMutation()
   const {mutateAsync: changeAccessLevel} =
@@ -148,11 +155,7 @@ function Guests({workspaceId}: {workspaceId: string}) {
 
   // if no guests, return a call to action
   if (guests.length === 0) {
-    return (
-      <DialogDescription>
-        Invite people to collaborate on this workspace.
-      </DialogDescription>
-    )
+    return <DialogDescription>{t('invite-collaborators')}</DialogDescription>
   }
 
   async function handleRemoveGuest(email: string) {
@@ -208,15 +211,17 @@ function Guests({workspaceId}: {workspaceId: string}) {
               <SelectValue defaultValue={guest.accessLevel} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="READ_WRITE">Can edit</SelectItem>
-              <SelectItem value="READ">Can view</SelectItem>
+              <SelectItem value="READ_WRITE">
+                {t('can-edit-permission')}
+              </SelectItem>
+              <SelectItem value="READ">{t('can-view-permission')}</SelectItem>
               <Separator className="my-2" />
               <Button
                 variant="ghost"
                 className="w-full h-8 hover:bg-destructive hover:text-destructive-foreground"
                 onClick={() => handleRemoveGuest(guest.email)}
               >
-                Remove
+                {t('remove-button')}
               </Button>
             </SelectContent>
           </Select>

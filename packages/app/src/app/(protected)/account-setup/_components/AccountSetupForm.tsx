@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import React from 'react'
 import {useForm} from 'react-hook-form'
@@ -31,6 +32,8 @@ export default function AccountSetupForm({
   name: string
   email: string
 }) {
+  const t = useTranslations('app/(protected)/account-setup/_components')
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -64,13 +67,11 @@ export default function AccountSetupForm({
           name="name"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>{t('name-label')}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
+              <FormDescription>{t('name-description')}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -80,19 +81,16 @@ export default function AccountSetupForm({
           name="email"
           render={({field}) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>{t('email-label')}</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
-              <FormDescription>
-                Your email address. People can use this to invite you to teams
-                or workspaces.
-              </FormDescription>
+              <FormDescription>{t('email-description')}</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">{t('submit-button')}</Button>
       </form>
     </Form>
   )

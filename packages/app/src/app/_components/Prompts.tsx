@@ -1,4 +1,5 @@
-'use client'
+import {useTranslations} from 'next-intl'
+;('use client')
 
 import {Suspense} from 'react'
 import {type CallbackFn, createPrompter} from 'react-promptify'
@@ -76,6 +77,8 @@ const PromptString = ({
   label?: string
   schema: ZodString
 }) => {
+  const t = useTranslations('app/_components')
+
   const formSchema = z.object({
     value: schema,
   })
@@ -121,9 +124,9 @@ const PromptString = ({
                 variant="secondary"
                 onClick={() => done(null)}
               >
-                Cancel
+                {t('cancel-button')}
               </Button>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">{t('submit-button')}</Button>
             </DialogFooter>
           </form>
         </Form>

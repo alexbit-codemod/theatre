@@ -1,3 +1,6 @@
+import {useTranslations} from 'next-intl'
 export default function Something() {
-  return <div>something</div>
+  const t = useTranslations('app/(public)/somethingpublic')
+
+  return <div>{t('something')}</div>
 }

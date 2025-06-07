@@ -1,3 +1,4 @@
+import {useTranslation} from 'react-i18next'
 import studio from '@theatre/studio'
 import {useLayoutEffect, useMemo, useState} from 'react'
 import useDrag from './useDrag'
@@ -81,6 +82,8 @@ const Box = ({id, sheet, selectedObject}) => {
 let lastBoxId = 1
 
 const App = ({project}) => {
+  const {t} = useTranslation('')
+
   const [boxes, setBoxes] = useState(['0', '1'])
 
   // This is cheap to call and always returns the same value, so no need for useMemo()
@@ -109,7 +112,7 @@ const App = ({project}) => {
           setBoxes((boxes) => [...boxes, String(++lastBoxId)])
         }}
       >
-        Add
+        {t('add-button')}
       </button>
       {boxes.map((id) => (
         <Box

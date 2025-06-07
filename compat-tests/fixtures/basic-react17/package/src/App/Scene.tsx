@@ -1,3 +1,4 @@
+import {useTranslation} from 'react-i18next'
 import type {IScrub} from '@theatre/core'
 import studio from '@theatre/studio'
 import React, {useLayoutEffect, useMemo, useState} from 'react'
@@ -88,6 +89,8 @@ const Box: React.FC<{
 let lastBoxId = 1
 
 export const Scene: React.FC<{project: IProject}> = ({project}) => {
+  const {t} = useTranslation('App')
+
   const [boxes, setBoxes] = useState<Array<string>>(['0', '1'])
 
   // This is cheap to call and always returns the same value, so no need for useMemo()
@@ -120,7 +123,7 @@ export const Scene: React.FC<{project: IProject}> = ({project}) => {
           setBoxes((boxes) => [...boxes, String(++lastBoxId)])
         }}
       >
-        Add
+        {t('add-button')}
       </button>
       {boxes.map((id) => (
         <Box

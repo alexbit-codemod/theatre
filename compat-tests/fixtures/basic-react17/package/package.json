@@ -7,11 +7,14 @@
   "dependencies": {
     "@theatre/core": "0.0.1-COMPAT.1",
     "@theatre/studio": "0.0.1-COMPAT.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "i18next": "^24.1.0",
+    "i18next-browser-languagedetector": "^8.0.2",
     "parcel-bundler": "^1.12.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
+    "react-i18next": "^15.2.0",
     "serve": "14.2.0"
   }
 }

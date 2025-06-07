@@ -1,7 +1,7 @@
 import {Suspense} from 'react'
 import Team from './components/Team'
 import {api} from '~/trpc/server'
-import { redirect} from 'next/navigation'
+import {redirect} from 'next/navigation'
 
 export default async function TeamPage({params: {id}}: {params: {id: string}}) {
   try {

@@ -63,8 +63,8 @@ export const workspaceRouter = t.createRouter({
         accessType: !isGuest
           ? ('TEAM' as const)
           : workspace?.guests[0].accepted
-          ? ('GUEST' as const)
-          : ('GUEST_PENDING' as const),
+            ? ('GUEST' as const)
+            : ('GUEST_PENDING' as const),
         accessLevel: isGuest ? workspace?.guests[0].accessLevel : 'READ_WRITE',
       }
 
@@ -128,8 +128,8 @@ export const workspaceRouter = t.createRouter({
           accessType: !guest
             ? ('TEAM' as const)
             : guest.accepted
-            ? ('GUEST' as const)
-            : ('GUEST_PENDING' as const),
+              ? ('GUEST' as const)
+              : ('GUEST_PENDING' as const),
         }
 
         // If guest, they have the access level defined in the guest settings
